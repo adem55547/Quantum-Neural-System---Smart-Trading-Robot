@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مطعم ومقهى الراحة</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f8f8f8; margin: 0; padding: 0; }
+    header { background-color: #8B0000; color: white; padding: 20px; text-align: center; }
+    nav { background-color: #eee; padding: 10px; text-align: center; }
+    nav a { margin: 0 15px; text-decoration: none; color: #333; font-weight: bold; }
+    .menu-section { padding: 20px; }
+    .item { background-color: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
+    .item h3 { margin: 0; }
+    .item button { background-color: #8B0000; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
+    #cart { background-color: #fff; padding: 20px; margin: 20px; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
+    #cart ul { list-style: none; padding: 0; }
+    #cart li { margin-bottom: 10px; }
+    form input, form textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+    form button { background-color: green; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>مطعم ومقهى الراحة</h1>
+    <p>اختر طلبك وأكده بكل سهولة</p>
+  </header>
+
+  <nav>
+    <a href="#food">الأطعمة</a>
+    <a href="#drinks">المشروبات</a>
+    <a href="#desserts">الحلويات</a>
+    <a href="#cart">السلة</a>
+  </nav>
+
+  <div class="menu-section" id="food">
+    <h2>🍽️ الأطعمة</h2>
+    <div class="item">
+      <h3>شاورما دجاج</h3>
+      <p>سندويتش شاورما مع صوص خاص</p>
+      <button onclick="addToCart('شاورما دجاج')">أضف إلى السلة</button>
+    </div>
+    <div class="item">
+      <h3>بيتزا مارجريتا</h3>
+      <p>جبنة موزاريلا وطماطم طازجة</p>
+      <button onclick="addToCart('بيتزا مارجريتا')">أضف إلى السلة</button>
+    </div>
+  </div>
+
+  <div class="menu-section" id="drinks">
+    <h2>☕ المشروبات</h2>
+    <div class="item">
+      <h3>قهوة تركية</h3>
+      <p>قهوة قوية بطابع شرقي</p>
+      <button onclick="addToCart('قهوة تركية')">أضف إلى السلة</button>
+    </div>
+    <div class="item">
+      <h3>عصير برتقال طبيعي</h3>
+      <p>عصير طازج بدون إضافات</p>
+      <button onclick="addToCart('عصير برتقال طبيعي')">أضف إلى السلة</button>
+    </div>
+  </div>
+
+  <div class="menu-section" id="desserts">
+    <h2>🍰 الحلويات</h2>
+    <div class="item">
+      <h3>كنافة بالقشطة</h3>
+      <p>كنافة طرية مع قشطة وعسل</p>
+      <button onclick="addToCart('كنافة بالقشطة')">أضف إلى السلة</button>
+    </div>
+    <div class="item">
+      <h3>تشيز كيك الفراولة</h3>
+      <p>تشيز كيك مع صوص الفراولة</p>
+      <button onclick="addToCart('تشيز كيك الفراولة')">أضف إلى السلة</button>
+    </div>
+  </div>
+
+  <div id="cart">
+    <h2>🛒 السلة</h2>
+    <ul id="cartItems"></ul>
+
+    <h3>📋 تأكيد الطلب</h3>
+    <form onsubmit="submitOrder(event)">
+      <input type="text" id="name" placeholder="الاسم الكامل" required>
+      <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+      <textarea id="notes" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+      <button type="submit">تأكيد الطلب</button>
+    </form>
+    <p id="confirmation" style="color: green;"></p>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function addToCart(item) {
+      cart.push(item);
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cartItems');
+      cartList.innerHTML = '';
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${index + 1}. ${item}`;
+        cartList.appendChild(li);
+      });
+    }
+
+    function submitOrder(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const notes = document.getElementById('notes').value;
+
+      if (cart.length === 0) {
+        alert("السلة فارغة! أضف طلبات أولاً.");
+        return;
+      }
+
+      document.getElementById('confirmation').textContent =
+        `شكرًا ${name}! تم استلام طلبك وسنتواصل معك على الرقم ${phone}.`;
+
+      cart = [];
+      updateCart();
+      event.target.reset();
+    }
+  </script>
+
+</body>
+</html>
