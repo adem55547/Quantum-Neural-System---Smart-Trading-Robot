@@ -1,132 +1,1698 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="html-root">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>مطعم ومقهى الراحة</title>
-  <style>
-    body { font-family: 'Arial', sans-serif; background-color: #f8f8f8; margin: 0; padding: 0; }
-    header { background-color: #8B0000; color: white; padding: 20px; text-align: center; }
-    nav { background-color: #eee; padding: 10px; text-align: center; }
-    nav a { margin: 0 15px; text-decoration: none; color: #333; font-weight: bold; }
-    .menu-section { padding: 20px; }
-    .item { background-color: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
-    .item h3 { margin: 0; }
-    .item button { background-color: #8B0000; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
-    #cart { background-color: #fff; padding: 20px; margin: 20px; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
-    #cart ul { list-style: none; padding: 0; }
-    #cart li { margin-bottom: 10px; }
-    form input, form textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
-    form button { background-color: green; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Neural System - Smart Trading Robot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #00f3ff;
+            --secondary: #ff00e6;
+            --accent: #00ff9d;
+            --neon-blue: #00eeff;
+            --neon-pink: #ff00ff;
+            --neon-green: #00ff9d;
+            --neon-purple: #9d00ff;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --neural: #ff6b35;
+            --profit: #00ff9d;
+            --loss: #ff6b6b;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* خلفية النجوم المتحركة */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite, moveStar 20s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes moveStar {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100vh) translateX(-100px); }
+        }
+
+        /* زر تبديل اللغة */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 8px 15px;
+            background: rgba(10, 10, 30, 0.8);
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover {
+            background: var(--neon-blue);
+            color: var(--dark);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .lang-btn.active {
+            background: var(--neon-blue);
+            color: var(--dark);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* الروبوت في الأعلى */
+        .robot-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            text-align: center;
+        }
+
+        .robot {
+            width: 80px;
+            height: 100px;
+            position: relative;
+            margin: 0 auto 10px;
+        }
+
+        .robot-head {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #333, #555);
+            border-radius: 20px;
+            margin: 0 auto;
+            position: relative;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .robot-eyes {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 10px 0;
+        }
+
+        .eye {
+            width: 15px;
+            height: 15px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            animation: eyeGlow 2s infinite alternate;
+        }
+
+        @keyframes eyeGlow {
+            0% { box-shadow: 0 0 5px var(--neon-blue); }
+            100% { box-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-blue); }
+        }
+
+        .robot-mouth {
+            width: 30px;
+            height: 5px;
+            background: var(--neon-blue);
+            margin: 8px auto 0;
+            border-radius: 5px;
+            animation: mouthPulse 1.5s infinite alternate;
+        }
+
+        @keyframes mouthPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .quantum-beam {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--neon-blue), transparent);
+            box-shadow: 0 0 20px var(--neon-blue);
+            animation: beamExtend 3s infinite;
+        }
+
+        @keyframes beamExtend {
+            0% { height: 0; opacity: 0; }
+            50% { height: 200px; opacity: 1; }
+            100% { height: 0; opacity: 0; }
+        }
+
+        .robot-status {
+            font-size: 0.9rem;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+            margin-top: 5px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 140px 20px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+
+        .neural-network {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .neural-path {
+            stroke: var(--neural);
+            stroke-width: 1;
+            fill: none;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { stroke-opacity: 0.3; }
+            50% { stroke-opacity: 1; }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+            animation: neonGlow 2s infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            from {
+                text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+            }
+            to {
+                text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue), 0 0 20px var(--neon-blue);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 1100px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quantum-calculator {
+            background: rgba(10, 10, 30, 0.7);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: neonBorder 3s infinite alternate;
+        }
+
+        @keyframes neonBorder {
+            0% {
+                box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), inset 0 0 10px var(--neon-blue);
+            }
+            100% {
+                box-shadow: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-blue), 0 0 45px var(--neon-blue), inset 0 0 15px var(--neon-blue);
+            }
+        }
+
+        .quantum-calculator::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--primary), transparent 30%);
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .calculator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .mode-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .display {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quantum-state {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-top: 10px;
+            font-family: monospace;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .operator {
+            background: rgba(0, 243, 255, 0.2);
+        }
+
+        .quantum-btn {
+            background: rgba(255, 0, 230, 0.2);
+        }
+
+        .neural-btn {
+            background: rgba(255, 107, 53, 0.2);
+        }
+
+        .equals {
+            background: rgba(0, 255, 157, 0.3);
+            grid-column: span 2;
+        }
+
+        .ai-panel {
+            background: rgba(10, 10, 30, 0.7);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
+            animation: neonBorderAI 3s infinite alternate;
+        }
+
+        @keyframes neonBorderAI {
+            0% {
+                box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), inset 0 0 10px var(--neon-pink);
+            }
+            100% {
+                box-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink), 0 0 45px var(--neon-pink), inset 0 0 15px var(--neon-pink);
+            }
+        }
+
+        .assets-panel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .asset-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .asset-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .asset-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .asset-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .asset-card.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+            animation: activeCard 2s infinite alternate;
+        }
+
+        @keyframes activeCard {
+            0% { box-shadow: 0 0 10px var(--neon-green); }
+            100% { box-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
+        }
+
+        .asset-name {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .asset-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .asset-change.positive {
+            color: var(--profit);
+            text-shadow: 0 0 10px var(--profit);
+        }
+
+        .asset-change.negative {
+            color: var(--loss);
+            text-shadow: 0 0 10px var(--loss);
+        }
+
+        .price-indicator {
+            height: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .price-glow {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--neon-blue), transparent 70%);
+            position: absolute;
+            filter: blur(20px);
+            opacity: 0.7;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .price-value {
+            font-size: 3rem;
+            font-weight: bold;
+            z-index: 2;
+            text-shadow: 0 0 20px var(--neon-blue);
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue); }
+            100% { text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue), 0 0 60px var(--neon-blue); }
+        }
+
+        .tech-rays {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .ray {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--neon-purple), transparent);
+            animation: rayMove 3s infinite linear;
+        }
+
+        @keyframes rayMove {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .data-stream {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .stream-item {
+            padding: 5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: monospace;
+            font-size: 0.9rem;
+            animation: stream 20s linear infinite;
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        @keyframes stream {
+            0% { transform: translateY(100px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .space-tech {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .satellite, .black-hole {
+            background: rgba(10, 10, 30, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: neonBorderTech 4s infinite alternate;
+        }
+
+        @keyframes neonBorderTech {
+            0% { box-shadow: 0 0 10px var(--neon-purple); }
+            100% { box-shadow: 0 0 20px var(--neon-purple), 0 0 40px var(--neon-purple); }
+        }
+
+        .satellite {
+            border-color: rgba(0, 243, 255, 0.3);
+        }
+
+        .black-hole {
+            border-color: rgba(255, 0, 230, 0.3);
+        }
+
+        .orbit {
+            width: 150px;
+            height: 150px;
+            border: 1px solid rgba(0, 243, 255, 0.5);
+            border-radius: 50%;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .satellite-object {
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            margin-left: -15px;
+            animation: orbit 5s linear infinite;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(75px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(75px) rotate(-360deg); }
+        }
+
+        .black-hole-visual {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #ff00e6, #000);
+            border-radius: 50%;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 0 30px #ff00e6;
+            animation: blackHolePulse 3s infinite alternate;
+        }
+
+        @keyframes blackHolePulse {
+            0% { box-shadow: 0 0 20px var(--neon-pink); }
+            100% { box-shadow: 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink); }
+        }
+
+        .black-hole-visual::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(transparent, transparent, transparent, var(--secondary));
+            border-radius: 50%;
+            animation: rotate 3s linear infinite;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tech-item {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .loading {
+            color: var(--neon-blue);
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(10, 10, 30, 0.9);
+            color: var(--accent);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--accent);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: neonNotification 2s infinite alternate;
+        }
+
+        @keyframes neonNotification {
+            0% { box-shadow: 0 0 10px var(--neon-green); }
+            100% { box-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
+        }
+
+        /* أنماط للغة الإنجليزية */
+        [dir="ltr"] body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        [dir="ltr"] .robot-status,
+        [dir="ltr"] .subtitle,
+        [dir="ltr"] .asset-name,
+        [dir="ltr"] .stream-item,
+        [dir="ltr"] footer p {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        [dir="ltr"] .quantum-state {
+            font-family: monospace;
+        }
+
+        [dir="ltr"] .mode-selector {
+            flex-direction: row;
+        }
+
+        [dir="ltr"] .buttons {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        [dir="ltr"] .tech-stack {
+            flex-direction: row;
+        }
+
+        [dir="ltr"] .language-switcher {
+            right: auto;
+            left: 20px;
+        }
+
+        .api-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(10, 10, 30, 0.8);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            border: 1px solid var(--neon-green);
+            backdrop-filter: blur(10px);
+        }
+
+        .api-status.offline {
+            border-color: var(--loss);
+            color: var(--loss);
+        }
+
+        .api-status.online {
+            border-color: var(--profit);
+            color: var(--profit);
+        }
+    </style>
 </head>
 <body>
+    <!-- خلفية النجوم المتحركة -->
+    <div class="stars" id="stars"></div>
 
-  <header>
-    <h1>مطعم ومقهى الراحة</h1>
-    <p>اختر طلبك وأكده بكل سهولة</p>
-  </header>
-
-  <nav>
-    <a href="#food">الأطعمة</a>
-    <a href="#drinks">المشروبات</a>
-    <a href="#desserts">الحلويات</a>
-    <a href="#cart">السلة</a>
-  </nav>
-
-  <div class="menu-section" id="food">
-    <h2>🍽️ الأطعمة</h2>
-    <div class="item">
-      <h3>شاورما دجاج</h3>
-      <p>سندويتش شاورما مع صوص خاص</p>
-      <button onclick="addToCart('شاورما دجاج')">أضف إلى السلة</button>
+    <!-- زر تبديل اللغة -->
+    <div class="language-switcher">
+        <button class="lang-btn active" id="lang-ar">العربية</button>
+        <button class="lang-btn" id="lang-en">English</button>
     </div>
-    <div class="item">
-      <h3>بيتزا مارجريتا</h3>
-      <p>جبنة موزاريلا وطماطم طازجة</p>
-      <button onclick="addToCart('بيتزا مارجريتا')">أضف إلى السلة</button>
+
+    <!-- حالة الاتصال بالـAPI -->
+    <div class="api-status" id="api-status">
+        <i class="fas fa-circle"></i> جاري الاتصال بالخوادم...
     </div>
-  </div>
 
-  <div class="menu-section" id="drinks">
-    <h2>☕ المشروبات</h2>
-    <div class="item">
-      <h3>قهوة تركية</h3>
-      <p>قهوة قوية بطابع شرقي</p>
-      <button onclick="addToCart('قهوة تركية')">أضف إلى السلة</button>
+    <!-- الروبوت في الأعلى -->
+    <div class="robot-container">
+        <div class="robot">
+            <div class="robot-head">
+                <div class="robot-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="robot-mouth"></div>
+            </div>
+            <div class="quantum-beam"></div>
+        </div>
+        <div class="robot-status" id="robot-status">جاري تحليل البيانات الكمومية...</div>
     </div>
-    <div class="item">
-      <h3>عصير برتقال طبيعي</h3>
-      <p>عصير طازج بدون إضافات</p>
-      <button onclick="addToCart('عصير برتقال طبيعي')">أضف إلى السلة</button>
+
+    <div class="container">
+        <header>
+            <!-- شبكة عصبية متحركة في الخلفية -->
+            <svg class="neural-network" viewBox="0 0 500 200">
+                <path class="neural-path" d="M50,100 Q150,50 250,100 T450,100" />
+                <path class="neural-path" d="M50,120 Q150,70 250,120 T450,120" />
+                <path class="neural-path" d="M50,80 Q150,130 250,80 T450,80" />
+                <circle cx="50" cy="100" r="5" fill="var(--neural)" />
+                <circle cx="250" cy="100" r="5" fill="var(--neural)" />
+                <circle cx="450" cy="100" r="5" fill="var(--neural)" />
+            </svg>
+            
+            <h1 id="main-title">النظام الكمومي العصبي - روبوت التداول الذكي</h1>
+            <p class="subtitle" id="subtitle">روبوت كمومي يحلل الأسواق العالمية بإشارات ضوئية متقدمة</p>
+        </header>
+
+        <div class="main-content">
+            <div class="quantum-calculator">
+                <div class="calculator-header">
+                    <h2 id="calculator-title">الحاسبة الكمومية للتداول</h2>
+                    <div class="mode-selector">
+                        <button class="mode-btn active" id="quantum-mode">كمي</button>
+                        <button class="mode-btn" id="neural-mode">عصبي</button>
+                        <button class="mode-btn" id="space-mode">فضائي</button>
+                    </div>
+                </div>
+                
+                <div class="display">
+                    <div id="result">0</div>
+                    <div id="quantum-state" class="quantum-state">|0⟩ - الحالة الأساسية</div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="neural-btn" onclick="neuralAnalysis()" id="neural-analysis-btn">تحليل عصبي</button>
+                    <button class="quantum-btn" onclick="quantumSuperposition()" id="superposition-btn">تراكب كمي</button>
+                    <button class="quantum-btn" onclick="quantumEntanglement()" id="entanglement-btn">تشابك</button>
+                    <button class="operator" onclick="appendToDisplay('/')">/</button>
+                    <button class="operator" onclick="appendToDisplay('*')">×</button>
+                    
+                    <button onclick="appendToDisplay('7')">7</button>
+                    <button onclick="appendToDisplay('8')">8</button>
+                    <button onclick="appendToDisplay('9')">9</button>
+                    <button class="operator" onclick="appendToDisplay('-')">-</button>
+                    <button class="neural-btn" onclick="predictMarket()" id="predict-market-btn">تنبؤ السوق</button>
+                    
+                    <button onclick="appendToDisplay('4')">4</button>
+                    <button onclick="appendToDisplay('5')">5</button>
+                    <button onclick="appendToDisplay('6')">6</button>
+                    <button class="operator" onclick="appendToDisplay('+')">+</button>
+                    <button class="neural-btn" onclick="optimizePortfolio()" id="optimize-portfolio-btn">تحسين المحفظة</button>
+                    
+                    <button onclick="appendToDisplay('1')">1</button>
+                    <button onclick="appendToDisplay('2')">2</button>
+                    <button onclick="appendToDisplay('3')">3</button>
+                    <button class="quantum-btn" onclick="quantumFourier()" id="fourier-btn">تحويل فورييه</button>
+                    <button class="neural-btn" onclick="riskAnalysis()" id="risk-analysis-btn">تحليل المخاطر</button>
+                    
+                    <button onclick="appendToDisplay('0')">0</button>
+                    <button onclick="appendToDisplay('.')">.</button>
+                    <button class="equals" onclick="calculate()" id="equals-btn">=</button>
+                    <button class="quantum-btn" onclick="shorsAlgorithm()" id="shor-btn">خوارزمية شور</button>
+                </div>
+            </div>
+            
+            <div class="ai-panel">
+                <h2 id="ai-panel-title">منصة التداول الكمومية - بيانات حية</h2>
+                <p id="ai-panel-subtitle">أسعار مباشرة من الأسواق العالمية</p>
+                
+                <div class="assets-panel">
+                    <div class="asset-card active" data-asset="EURUSD" onclick="selectAsset(this, 'EURUSD')">
+                        <div class="asset-name">يورو/دولار</div>
+                        <div class="asset-price" id="EURUSD-price">--</div>
+                        <div class="asset-change" id="EURUSD-change">--</div>
+                    </div>
+                    <div class="asset-card" data-asset="GBPUSD" onclick="selectAsset(this, 'GBPUSD')">
+                        <div class="asset-name">جنيه/دولار</div>
+                        <div class="asset-price" id="GBPUSD-price">--</div>
+                        <div class="asset-change" id="GBPUSD-change">--</div>
+                    </div>
+                    <div class="asset-card" data-asset="USDJPY" onclick="selectAsset(this, 'USDJPY')">
+                        <div class="asset-name">دولار/ين</div>
+                        <div class="asset-price" id="USDJPY-price">--</div>
+                        <div class="asset-change" id="USDJPY-change">--</div>
+                    </div>
+                    <div class="asset-card" data-asset="XAUUSD" onclick="selectAsset(this, 'XAUUSD')">
+                        <div class="asset-name">الذهب</div>
+                        <div class="asset-price" id="XAUUSD-price">--</div>
+                        <div class="asset-change" id="XAUUSD-change">--</div>
+                    </div>
+                    <div class="asset-card" data-asset="USOIL" onclick="selectAsset(this, 'USOIL')">
+                        <div class="asset-name">النفط</div>
+                        <div class="asset-price" id="USOIL-price">--</div>
+                        <div class="asset-change" id="USOIL-change">--</div>
+                    </div>
+                    <div class="asset-card" data-asset="BTCUSD" onclick="selectAsset(this, 'BTCUSD')">
+                        <div class="asset-name">بتكوين</div>
+                        <div class="asset-price" id="BTCUSD-price">--</div>
+                        <div class="asset-change" id="BTCUSD-change">--</div>
+                    </div>
+                </div>
+                
+                <div class="price-indicator" id="price-indicator">
+                    <div class="price-glow"></div>
+                    <div class="price-value" id="current-price">--</div>
+                    <div class="tech-rays" id="tech-rays"></div>
+                </div>
+                
+                <div class="data-stream">
+                    <div class="stream-item" id="stream-item-1">جاري تحميل بيانات السوق الحية...</div>
+                    <div class="stream-item" id="stream-item-2">الاتصال بخوادم البيانات العالمية...</div>
+                    <div class="stream-item" id="stream-item-3">تحليل الأنماط الكمومية...</div>
+                    <div class="stream-item" id="stream-item-4">معالجة إشارات التداول...</div>
+                    <div class="stream-item" id="stream-item-5">تحديث النماذج العصبية...</div>
+                    <div class="stream-item" id="stream-item-6">مراقبة التقلبات السوقية...</div>
+                    <div class="stream-item" id="stream-item-7">تحليل المشاعر السوقية...</div>
+                    <div class="stream-item" id="stream-item-8">حساب الاحتمالات الكمومية...</div>
+                </div>
+                
+                <button style="width:100%; margin-top:15px;" onclick="activateAI()" id="activate-ai-btn">تفعيل الذكاء الاصطناعي المتقدم</button>
+            </div>
+        </div>
+        
+        <div class="space-tech">
+            <div class="satellite">
+                <h3 id="satellite-title">شبكة الأقمار الاصطناعية</h3>
+                <div class="orbit">
+                    <div class="satellite-object"></div>
+                </div>
+                <p id="satellite-desc">نظام اتصالات كمومي عبر الأقمار الاصطناعية</p>
+                <button onclick="connectSatellites()" id="connect-satellites-btn">ربط الشبكة الفضائية</button>
+            </div>
+            
+            <div class="black-hole">
+                <h3 id="blackhole-title">محاكاة الثقب الأسود</h3>
+                <div class="black-hole-visual"></div>
+                <p id="blackhole-desc">نموذج كمومي لمحاكاة الجاذبية الفائقة</p>
+                <button onclick="simulateBlackHole()" id="simulate-blackhole-btn">بدء المحاكاة</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p id="footer-text">النظام الكمومي العصبي الفضائي للتداول - بيانات حية من الأسواق العالمية</p>
+            <div class="tech-stack">
+                <div class="tech-item" id="tech-1">الحوسبة الكمومية</div>
+                <div class="tech-item" id="tech-2">الشبكات العصبية</div>
+                <div class="tech-item" id="tech-3">التعلم العميق</div>
+                <div class="tech-item" id="tech-4">التكنولوجيا الفضائية</div>
+                <div class="tech-item" id="tech-5">الذكاء الاصطناعي</div>
+                <div class="tech-item" id="tech-6">البيانات الضخمة</div>
+            </div>
+        </footer>
     </div>
-  </div>
 
-  <div class="menu-section" id="desserts">
-    <h2>🍰 الحلويات</h2>
-    <div class="item">
-      <h3>كنافة بالقشطة</h3>
-      <p>كنافة طرية مع قشطة وعسل</p>
-      <button onclick="addToCart('كنافة بالقشطة')">أضف إلى السلة</button>
-    </div>
-    <div class="item">
-      <h3>تشيز كيك الفراولة</h3>
-      <p>تشيز كيك مع صوص الفراولة</p>
-      <button onclick="addToCart('تشيز كيك الفراولة')">أضف إلى السلة</button>
-    </div>
-  </div>
+    <script>
+        // بيانات الترجمة
+        const translations = {
+            ar: {
+                // العناوين الرئيسية
+                "main-title": "النظام الكمومي العصبي - روبوت التداول الذكي",
+                "subtitle": "روبوت كمومي يحلل الأسواق العالمية بإشارات ضوئية متقدمة",
+                "calculator-title": "الحاسبة الكمومية للتداول",
+                "ai-panel-title": "منصة التداول الكمومية - بيانات حية",
+                "ai-panel-subtitle": "أسعار مباشرة من الأسواق العالمية",
+                "satellite-title": "شبكة الأقمار الاصطناعية",
+                "satellite-desc": "نظام اتصالات كمومي عبر الأقمار الاصطناعية",
+                "blackhole-title": "محاكاة الثقب الأسود",
+                "blackhole-desc": "نموذج كمومي لمحاكاة الجاذبية الفائقة",
+                "footer-text": "النظام الكمومي العصبي الفضائي للتداول - بيانات حية من الأسواق العالمية",
+                
+                // أزرار الآلة الحاسبة
+                "quantum-mode": "كمي",
+                "neural-mode": "عصبي",
+                "space-mode": "فضائي",
+                "neural-analysis-btn": "تحليل عصبي",
+                "superposition-btn": "تراكب كمي",
+                "entanglement-btn": "تشابك",
+                "predict-market-btn": "تنبؤ السوق",
+                "optimize-portfolio-btn": "تحسين المحفظة",
+                "fourier-btn": "تحويل فورييه",
+                "risk-analysis-btn": "تحليل المخاطر",
+                "equals-btn": "=",
+                "shor-btn": "خوارزمية شور",
+                "activate-ai-btn": "تفعيل الذكاء الاصطناعي المتقدم",
+                "connect-satellites-btn": "ربط الشبكة الفضائية",
+                "simulate-blackhole-btn": "بدء المحاكاة",
+                
+                // التقنيات
+                "tech-1": "الحوسبة الكمومية",
+                "tech-2": "الشبكات العصبية",
+                "tech-3": "التعلم العميق",
+                "tech-4": "التكنولوجيا الفضائية",
+                "tech-5": "الذكاء الاصطناعي",
+                "tech-6": "البيانات الضخمة",
+                
+                // حالات الروبوت
+                "robot-statuses": [
+                    "🔍 الروبوت يمسح الأسواق العالمية",
+                    "📊 تحليل البيانات في الوقت الحقيقي",
+                    "⚡ معالجة الإشارات الكمومية",
+                    "🌍 مراقبة التقلبات العالمية",
+                    "💡 توليد أفكار تداول جديدة"
+                ],
+                
+                // تيار البيانات
+                "stream-item-1": "جاري تحميل بيانات السوق الحية...",
+                "stream-item-2": "الاتصال بخوادم البيانات العالمية...",
+                "stream-item-3": "تحليل الأنماط الكمومية...",
+                "stream-item-4": "معالجة إشارات التداول...",
+                "stream-item-5": "تحديث النماذج العصبية...",
+                "stream-item-6": "مراقبة التقلبات السوقية...",
+                "stream-item-7": "تحليل المشاعر السوقية...",
+                "stream-item-8": "حساب الاحتمالات الكمومية..."
+            },
+            en: {
+                // العناوين الرئيسية
+                "main-title": "Quantum Neural System - Smart Trading Robot",
+                "subtitle": "Quantum robot analyzes global markets with advanced light signals",
+                "calculator-title": "Quantum Trading Calculator",
+                "ai-panel-title": "Quantum Trading Platform - Live Data",
+                "ai-panel-subtitle": "Real-time prices from global markets",
+                "satellite-title": "Satellite Network",
+                "satellite-desc": "Quantum communication system via satellites",
+                "blackhole-title": "Black Hole Simulation",
+                "blackhole-desc": "Quantum model for simulating supergravity",
+                "footer-text": "Space Quantum Neural Trading System - Live data from global markets",
+                
+                // أزرار الآلة الحاسبة
+                "quantum-mode": "Quantum",
+                "neural-mode": "Neural",
+                "space-mode": "Space",
+                "neural-analysis-btn": "Neural Analysis",
+                "superposition-btn": "Superposition",
+                "entanglement-btn": "Entanglement",
+                "predict-market-btn": "Market Prediction",
+                "optimize-portfolio-btn": "Optimize Portfolio",
+                "fourier-btn": "Fourier Transform",
+                "risk-analysis-btn": "Risk Analysis",
+                "equals-btn": "=",
+                "shor-btn": "Shor's Algorithm",
+                "activate-ai-btn": "Activate Advanced AI",
+                "connect-satellites-btn": "Connect Space Network",
+                "simulate-blackhole-btn": "Start Simulation",
+                
+                // التقنيات
+                "tech-1": "Quantum Computing",
+                "tech-2": "Neural Networks",
+                "tech-3": "Deep Learning",
+                "tech-4": "Space Technology",
+                "tech-5": "Artificial Intelligence",
+                "tech-6": "Big Data",
+                
+                // حالات الروبوت
+                "robot-statuses": [
+                    "🔍 Robot scanning global markets",
+                    "📊 Analyzing real-time data",
+                    "⚡ Processing quantum signals",
+                    "🌍 Monitoring global fluctuations",
+                    "💡 Generating new trading ideas"
+                ],
+                
+                // تيار البيانات
+                "stream-item-1": "Loading live market data...",
+                "stream-item-2": "Connecting to global data servers...",
+                "stream-item-3": "Analyzing quantum patterns...",
+                "stream-item-4": "Processing trading signals...",
+                "stream-item-5": "Updating neural models...",
+                "stream-item-6": "Monitoring market volatility...",
+                "stream-item-7": "Analyzing market sentiment...",
+                "stream-item-8": "Calculating quantum probabilities..."
+            }
+        };
 
-  <div id="cart">
-    <h2>🛒 السلة</h2>
-    <ul id="cartItems"></ul>
+        // بيانات الأسعار الحقيقية
+        const assetSymbols = ['EURUSD', 'GBPUSD', 'USDJPY', 'XAUUSD', 'USOIL', 'BTCUSD'];
+        let currentAsset = 'EURUSD';
+        let assetPrices = {};
+        let currentLanguage = 'ar';
+        let apiOnline = false;
 
-    <h3>📋 تأكيد الطلب</h3>
-    <form onsubmit="submitOrder(event)">
-      <input type="text" id="name" placeholder="الاسم الكامل" required>
-      <input type="tel" id="phone" placeholder="رقم الهاتف" required>
-      <textarea id="notes" placeholder="ملاحظات إضافية (اختياري)"></textarea>
-      <button type="submit">تأكيد الطلب</button>
-    </form>
-    <p id="confirmation" style="color: green;"></p>
-  </div>
+        // إنشاء النجوم في الخلفية
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${10 + Math.random() * 20}s`;
+                starsContainer.appendChild(star);
+            }
+        }
 
-  <script>
-    let cart = [];
+        // إنشاء أشعة التكنولوجيا
+        function createTechRays() {
+            const raysContainer = document.getElementById('tech-rays');
+            for (let i = 0; i < 10; i++) {
+                const ray = document.createElement('div');
+                ray.className = 'ray';
+                ray.style.left = `${i * 10}%`;
+                ray.style.animationDelay = `${i * 0.3}s`;
+                raysContainer.appendChild(ray);
+            }
+        }
 
-    function addToCart(item) {
-      cart.push(item);
-      updateCart();
-    }
+        // تحديث حالة API
+        function updateApiStatus(online) {
+            const apiStatus = document.getElementById('api-status');
+            apiOnline = online;
+            
+            if (online) {
+                apiStatus.className = 'api-status online';
+                if (currentLanguage === 'ar') {
+                    apiStatus.innerHTML = '<i class="fas fa-circle"></i> متصل بالخوادم - بيانات حية';
+                } else {
+                    apiStatus.innerHTML = '<i class="fas fa-circle"></i> Connected to servers - Live data';
+                }
+            } else {
+                apiStatus.className = 'api-status offline';
+                if (currentLanguage === 'ar') {
+                    apiStatus.innerHTML = '<i class="fas fa-circle"></i> غير متصل - استخدام بيانات محلية';
+                } else {
+                    apiStatus.innerHTML = '<i class="fas fa-circle"></i> Offline - Using local data';
+                }
+            }
+        }
 
-    function updateCart() {
-      const cartList = document.getElementById('cartItems');
-      cartList.innerHTML = '';
-      cart.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${index + 1}. ${item}`;
-        cartList.appendChild(li);
-      });
-    }
+        // جلب بيانات الأسعار الحقيقية من APIs مجانية
+        async function fetchRealPrices() {
+            try {
+                // محاولة استخدام Alpha Vantage API (مجاني مع مفتاح)
+                const alphaVantageKey = 'demo'; // يمكن استبدالها بمفتاح حقيقي
+                let prices = {};
+                
+                // محاولة جلب بيانات الفوركس
+                try {
+                    const forexResponse = await fetch(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=EUR&to_currency=USD&apikey=${alphaVantageKey}`);
+                    const forexData = await forexResponse.json();
+                    
+                    if (forexData['Realtime Currency Exchange Rate']) {
+                        const rate = parseFloat(forexData['Realtime Currency Exchange Rate']['5. Exchange Rate']);
+                        prices['EURUSD'] = { 
+                            price: rate,
+                            change: (Math.random() - 0.5) * 0.2 // تغيير محاكى
+                        };
+                    }
+                } catch (e) {
+                    console.log('Alpha Vantage Forex API failed, using fallback');
+                }
 
-    function submitOrder(event) {
-      event.preventDefault();
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      const notes = document.getElementById('notes').value;
+                // إذا فشل Alpha Vantage، نستخدم Twelve Data API
+                if (Object.keys(prices).length === 0) {
+                    try {
+                        const twelveDataKey = 'demo'; // يمكن استبدالها بمفتاح حقيقي
+                        const symbols = ['EUR/USD', 'GBP/USD', 'USD/JPY', 'XAU/USD', 'USOIL', 'BTC/USD'];
+                        
+                        for (const symbol of symbols) {
+                            const response = await fetch(`https://api.twelvedata.com/price?symbol=${symbol}&apikey=${twelveDataKey}`);
+                            const data = await response.json();
+                            
+                            if (data.price) {
+                                const assetKey = symbol.replace('/', '');
+                                prices[assetKey] = {
+                                    price: parseFloat(data.price),
+                                    change: (Math.random() - 0.5) * 0.3
+                                };
+                            }
+                        }
+                    } catch (e) {
+                        console.log('Twelve Data API failed, using fallback');
+                    }
+                }
 
-      if (cart.length === 0) {
-        alert("السلة فارغة! أضف طلبات أولاً.");
-        return;
-      }
+                // إذا فشلت جميع الـAPIs، نستخدم Yahoo Finance عبر CORS proxy
+                if (Object.keys(prices).length === 0) {
+                    try {
+                        const symbols = ['EURUSD=X', 'GBPUSD=X', 'JPY=X', 'GC=F', 'CL=F', 'BTC-USD'];
+                        const mapping = {
+                            'EURUSD=X': 'EURUSD',
+                            'GBPUSD=X': 'GBPUSD', 
+                            'JPY=X': 'USDJPY',
+                            'GC=F': 'XAUUSD',
+                            'CL=F': 'USOIL',
+                            'BTC-USD': 'BTCUSD'
+                        };
+                        
+                        for (const symbol of symbols) {
+                            const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`)}`);
+                            const data = await response.json();
+                            
+                            if (data.chart?.result?.[0]?.meta?.regularMarketPrice) {
+                                const assetKey = mapping[symbol];
+                                prices[assetKey] = {
+                                    price: data.chart.result[0].meta.regularMarketPrice,
+                                    change: (Math.random() - 0.5) * 0.4
+                                };
+                            }
+                        }
+                    } catch (e) {
+                        console.log('Yahoo Finance API failed, using fallback');
+                    }
+                }
 
-      document.getElementById('confirmation').textContent =
-        `شكرًا ${name}! تم استلام طلبك وسنتواصل معك على الرقم ${phone}.`;
+                // إذا فشلت جميع المحاولات، نستخدم بيانات محاكاة واقعية
+                if (Object.keys(prices).length === 0) {
+                    updateApiStatus(false);
+                    
+                    // بيانات محاكاة بناءً على الأسعار الحقيقية التقريبية
+                    const mockPrices = {
+                        'EURUSD': { price: 1.0854 + (Math.random() - 0.5) * 0.01, change: (Math.random() - 0.5) * 0.2 },
+                        'GBPUSD': { price: 1.2678 + (Math.random() - 0.5) * 0.01, change: (Math.random() - 0.5) * 0.2 },
+                        'USDJPY': { price: 149.23 + (Math.random() - 0.5) * 0.1, change: (Math.random() - 0.5) * 0.2 },
+                        'XAUUSD': { price: 2034.50 + (Math.random() - 0.5) * 5, change: (Math.random() - 0.5) * 0.3 },
+                        'USOIL': { price: 78.32 + (Math.random() - 0.5) * 0.5, change: (Math.random() - 0.5) * 0.5 },
+                        'BTCUSD': { price: 43250 + (Math.random() - 0.5) * 500, change: (Math.random() - 0.5) * 1 }
+                    };
+                    
+                    prices = mockPrices;
+                } else {
+                    updateApiStatus(true);
+                }
 
-      cart = [];
-      updateCart();
-      event.target.reset();
-    }
-  </script>
+                // ملء البيانات المفقودة ببيانات محاكاة
+                for (const symbol of assetSymbols) {
+                    if (!prices[symbol]) {
+                        prices[symbol] = {
+                            price: getFallbackPrice(symbol),
+                            change: (Math.random() - 0.5) * 0.3
+                        };
+                    }
+                }
 
+                // تحديث الأسعار في الذاكرة
+                assetPrices = prices;
+
+                // تحديث الواجهة
+                updatePriceDisplay();
+                updatePriceIndicator();
+
+                // تحديث حالة الروبوت
+                const currentData = assetPrices[currentAsset];
+                if (currentData) {
+                    let status;
+                    if (currentLanguage === 'ar') {
+                        status = currentData.change >= 0 ? 
+                            `📈 اكتشف الروبوت إشارة صعود لـ ${getAssetName(currentAsset)}` : 
+                            `📉 اكتشف الروبوت إشارة هبوط لـ ${getAssetName(currentAsset)}`;
+                    } else {
+                        status = currentData.change >= 0 ? 
+                            `📈 Robot detected bullish signal for ${getAssetName(currentAsset)}` : 
+                            `📉 Robot detected bearish signal for ${getAssetName(currentAsset)}`;
+                    }
+                    updateRobotStatus(status);
+                }
+
+            } catch (error) {
+                console.error('Error fetching prices:', error);
+                updateApiStatus(false);
+                
+                if (currentLanguage === 'ar') {
+                    showNotification('خطأ في جلب بيانات الأسعار. جاري استخدام البيانات المحلية.');
+                } else {
+                    showNotification('Error fetching price data. Using local data.');
+                }
+                
+                // استخدام بيانات افتراضية في حالة الخطأ
+                const fallbackPrices = {
+                    'EURUSD': { price: 1.0854, change: 0.24 },
+                    'GBPUSD': { price: 1.2678, change: 0.15 },
+                    'USDJPY': { price: 149.23, change: -0.18 },
+                    'XAUUSD': { price: 2034.50, change: 0.42 },
+                    'USOIL': { price: 78.32, change: -0.85 },
+                    'BTCUSD': { price: 43250, change: 2.35 }
+                };
+                
+                assetPrices = fallbackPrices;
+                updatePriceDisplay();
+                updatePriceIndicator();
+                
+                if (currentLanguage === 'ar') {
+                    updateRobotStatus('🔧 وضع الطوارئ - استخدام البيانات المحلية');
+                } else {
+                    updateRobotStatus('🔧 Emergency mode - Using local data');
+                }
+            }
+        }
+
+        // الحصول على سعر افتراضي واقعي
+        function getFallbackPrice(symbol) {
+            const fallbackPrices = {
+                'EURUSD': 1.0854,
+                'GBPUSD': 1.2678,
+                'USDJPY': 149.23,
+                'XAUUSD': 2034.50,
+                'USOIL': 78.32,
+                'BTCUSD': 43250
+            };
+            return fallbackPrices[symbol] || 1.0;
+        }
+
+        // تحديث عرض الأسعار
+        function updatePriceDisplay() {
+            for (const symbol of assetSymbols) {
+                const assetData = assetPrices[symbol];
+                if (assetData) {
+                    const priceElement = document.getElementById(`${symbol}-price`);
+                    const changeElement = document.getElementById(`${symbol}-change`);
+                    
+                    if (priceElement && changeElement) {
+                        // تنسيق السعر بناءً على نوع الأصل
+                        let priceFormatted;
+                        if (symbol.includes('USD') && !symbol.includes('XAU') && !symbol.includes('BTC')) {
+                            priceFormatted = assetData.price.toFixed(4);
+                        } else if (symbol === 'XAUUSD') {
+                            priceFormatted = assetData.price.toFixed(2);
+                        } else if (symbol === 'BTCUSD') {
+                            priceFormatted = Math.round(assetData.price).toLocaleString();
+                        } else {
+                            priceFormatted = assetData.price.toFixed(2);
+                        }
+                        
+                        priceElement.textContent = priceFormatted;
+                        changeElement.textContent = `${assetData.change >= 0 ? '+' : ''}${assetData.change.toFixed(2)}%`;
+                        changeElement.className = `asset-change ${assetData.change >= 0 ? 'positive' : 'negative'}`;
+                    }
+                }
+            }
+        }
+
+        // تحديث مؤشر السعر الرئيسي
+        function updatePriceIndicator() {
+            const currentAssetData = assetPrices[currentAsset];
+            if (currentAssetData) {
+                const priceElement = document.getElementById('current-price');
+                let priceFormatted;
+                
+                if (currentAsset.includes('USD') && !currentAsset.includes('XAU') && !currentAsset.includes('BTC')) {
+                    priceFormatted = currentAssetData.price.toFixed(4);
+                } else if (currentAsset === 'XAUUSD') {
+                    priceFormatted = currentAssetData.price.toFixed(2);
+                } else if (currentAsset === 'BTCUSD') {
+                    priceFormatted = Math.round(currentAssetData.price).toLocaleString();
+                } else {
+                    priceFormatted = currentAssetData.price.toFixed(2);
+                }
+                
+                priceElement.textContent = priceFormatted;
+                
+                // تحديث لون التوهج بناءً على اتجاه السعر
+                const glowElement = document.querySelector('.price-glow');
+                if (currentAssetData.change >= 0) {
+                    glowElement.style.background = 'radial-gradient(circle, var(--neon-green), transparent 70%)';
+                } else {
+                    glowElement.style.background = 'radial-gradient(circle, var(--loss), transparent 70%)';
+                }
+            }
+        }
+
+        // اختيار أصل معين
+        function selectAsset(element, asset) {
+            // إزالة النشاط من جميع الأصول
+            document.querySelectorAll('.asset-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // إضافة النشاط للاصل المحدد
+            element.classList.add('active');
+            
+            // تحديث الأصل الحالي
+            currentAsset = asset;
+            
+            // تحديث مؤشر السعر
+            updatePriceIndicator();
+            
+            // تحديث حالة الروبوت
+            const assetData = assetPrices[asset];
+            if (assetData) {
+                let status;
+                if (currentLanguage === 'ar') {
+                    status = assetData.change >= 0 ? 
+                        `📈 روبوت التداول يراقب صعود ${getAssetName(asset)}` : 
+                        `📉 روبوت التداول يحذر من هبوط ${getAssetName(asset)}`;
+                } else {
+                    status = assetData.change >= 0 ? 
+                        `📈 Trading robot monitoring bullish ${getAssetName(asset)}` : 
+                        `📉 Trading robot warning of bearish ${getAssetName(asset)}`;
+                }
+                updateRobotStatus(status);
+            }
+            
+            if (currentLanguage === 'ar') {
+                showNotification(`تم تحميل بيانات ${getAssetName(asset)}`);
+            } else {
+                showNotification(`Loaded data for ${getAssetName(asset)}`);
+            }
+        }
+
+        // الحصول على اسم الأصل
+        function getAssetName(symbol) {
+            const namesAr = {
+                'EURUSD': 'يورو/دولار',
+                'GBPUSD': 'جنيه/دولار',
+                'USDJPY': 'دولار/ين',
+                'XAUUSD': 'الذهب',
+                'USOIL': 'النفط',
+                'BTCUSD': 'بتكوين'
+            };
+            
+            const namesEn = {
+                'EURUSD': 'Euro/USD',
+                'GBPUSD': 'Pound/USD',
+                'USDJPY': 'USD/Yen',
+                'XAUUSD': 'Gold',
+                'USOIL': 'Oil',
+                'BTCUSD': 'Bitcoin'
+            };
+            
+            return currentLanguage === 'ar' ? namesAr[symbol] || symbol : namesEn[symbol] || symbol;
+        }
+
+        // تحديث حالة الروبوت
+        function updateRobotStatus(message) {
+            const statusElement = document.getElementById('robot-status');
+            statusElement.textContent = message;
+            
+            // تغيير لون عيون الروبوت حسب حالة السوق
+            const eyes = document.querySelectorAll('.eye');
+            if (message.includes('صعود') || message.includes('Bullish')) {
+                eyes.forEach(eye => eye.style.background = 'var(--profit)');
+            } else if (message.includes('هبوط') || message.includes('Bearish')) {
+                eyes.forEach(eye => eye.style.background = 'var(--loss)');
+            } else {
+                eyes.forEach(eye => eye.style.background = 'var(--neon-blue)');
+            }
+        }
+
+        // باقي الدوال (تبديل اللغة، الآلة الحاسبة، الدوال المتقدمة) تبقى كما هي
+        // ... [نفس الكود السابق للدوال الأخرى]
+
+        // التهيئة
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            createTechRays();
+            
+            // إضافة مستمعي الأحداث لأزرار اللغة
+            document.getElementById('lang-ar').addEventListener('click', () => switchLanguage('ar'));
+            document.getElementById('lang-en').addEventListener('click', () => switchLanguage('en'));
+            
+            // جلب البيانات الأولية
+            fetchRealPrices();
+            
+            // تحديث الأسعار كل 10 ثوان (لتجنب تجاوز حدود الـAPI)
+            setInterval(fetchRealPrices, 10000);
+            
+            // تغيير حالة الروبوت بشكل عشوائي
+            setInterval(() => {
+                const statuses = translations[currentLanguage]['robot-statuses'];
+                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                updateRobotStatus(randomStatus);
+            }, 8000);
+        });
+
+        // [يتبع باقي الدوال المفقودة من الكود السابق]
+        // دوال الآلة الحاسبة والدوال المتقدمة
+        let display = document.getElementById('result');
+        let quantumState = document.getElementById('quantum-state');
+        
+        function appendToDisplay(value) {
+            if (display.textContent === '0') {
+                display.textContent = value;
+            } else {
+                display.textContent += value;
+            }
+            updateQuantumState();
+        }
+        
+        function calculate() {
+            try {
+                let expression = display.textContent.replace('×', '*');
+                let result = eval(expression);
+                display.textContent = result;
+                
+                if (currentLanguage === 'ar') {
+                    quantumState.textContent = `|${result}⟩ - حالة القياس`;
+                } else {
+                    quantumState.textContent = `|${result}⟩ - Measurement State`;
+                }
+                
+                quantumEffect();
+            } catch (error) {
+                display.textContent = currentLanguage === 'ar' ? 'خطأ' : 'Error';
+                quantumState.textContent = currentLanguage === 'ar' ? 'انهيار الدالة الموجية!' : 'Wavefunction collapse!';
+            }
+        }
+        
+        function updateQuantumState() {
+            const statesAr = [
+                '|0⟩ - الحالة الأساسية',
+                '|1⟩ - الحالة المثارة',
+                '|+⟩ - تراكب موجب',
+                '|-⟩ - تراكب سالب',
+                'α|0⟩ + β|1⟩ - تراكب عام',
+                '|00⟩ + |11⟩ - حالة متشابكة'
+            ];
+            
+            const statesEn = [
+                '|0⟩ - Ground State',
+                '|1⟩ - Excited State',
+                '|+⟩ - Positive Superposition',
+                '|-⟩ - Negative Superposition',
+                'α|0⟩ + β|1⟩ - General Superposition',
+                '|00⟩ + |11⟩ - Entangled State'
+            ];
+            
+            const states = currentLanguage === 'ar' ? statesAr : statesEn;
+            quantumState.textContent = states[Math.floor(Math.random() * states.length)];
+        }
+        
+        function quantumEffect() {
+            const calculator = document.querySelector('.quantum-calculator');
+            calculator.style.boxShadow = '0 0 50px rgba(0, 243, 255, 0.5)';
+            setTimeout(() => {
+                calculator.style.boxShadow = '0 0 30px rgba(0, 243, 255, 0.2)';
+            }, 1000);
+        }
+        
+        function quantumSuperposition() {
+            display.textContent = '0+1';
+            
+            if (currentLanguage === 'ar') {
+                quantumState.textContent = '(|0⟩ + |1⟩)/√2 - حالة تراكب';
+                updateRobotStatus('🔬 الروبوت يطبق حالة التراكب الكمومي');
+                showNotification('تم إنشاء حالة التراكب الكمومي');
+            } else {
+                quantumState.textContent = '(|0⟩ + |1⟩)/√2 - Superposition State';
+                updateRobotStatus('🔬 Robot applying quantum superposition');
+                showNotification('Quantum superposition created');
+            }
+        }
+        
+        function quantumEntanglement() {
+            if (currentLanguage === 'ar') {
+                quantumState.textContent = '|00⟩ + |11⟩ - حالة متشابكة';
+                updateRobotStatus('🔄 الروبوت ينشئ تشابك كمومي بين الأصول');
+                showNotification('تم إنشاء التشابك الكمومي بين الكيوبتات');
+            } else {
+                quantumState.textContent = '|00⟩ + |11⟩ - Entangled State';
+                updateRobotStatus('🔄 Robot creating quantum entanglement between assets');
+                showNotification('Quantum entanglement created between qubits');
+            }
+        }
+        
+        function neuralAnalysis() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('🧠 الروبوت يحلل البيانات باستخدام الشبكات العصبية');
+                showNotification('جاري تحليل البيانات باستخدام الشبكة العصبية...');
+            } else {
+                updateRobotStatus('🧠 Robot analyzing data using neural networks');
+                showNotification('Analyzing data using neural network...');
+            }
+        }
+        
+        function predictMarket() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('🔮 الروبوت يتنبأ باتجاهات السوق المستقبلية');
+                showNotification('جاري تحليل السوق والتنبؤ بالاتجاه...');
+            } else {
+                updateRobotStatus('🔮 Robot predicting future market trends');
+                showNotification('Analyzing market and predicting direction...');
+            }
+        }
+        
+        function optimizePortfolio() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('⚡ الروبوت يحسن توزيع المحفظة الاستثمارية');
+                showNotification('جاري تحسين توزيع المحفظة باستخدام الخوارزميات الكمومية...');
+            } else {
+                updateRobotStatus('⚡ Robot optimizing investment portfolio distribution');
+                showNotification('Optimizing portfolio distribution using quantum algorithms...');
+            }
+        }
+        
+        function riskAnalysis() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('🛡️ الروبوت يحلل مخاطر السوق المحتملة');
+                showNotification('جاري تحليل المخاطر باستخدام النماذج العصبية...');
+            } else {
+                updateRobotStatus('🛡️ Robot analyzing potential market risks');
+                showNotification('Analyzing risks using neural models...');
+            }
+        }
+        
+        function quantumFourier() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('🌀 الروبوت يطبق تحويل فورييه الكمومي');
+                showNotification('جاري تطبيق تحويل فورييه الكمومي...');
+            } else {
+                updateRobotStatus('🌀 Robot applying quantum Fourier transform');
+                showNotification('Applying quantum Fourier transform...');
+            }
+        }
+        
+        function shorsAlgorithm() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('🔢 الروبوت ينفذ خوارزمية شور المتقدمة');
+                showNotification('تفعيل خوارزمية شور لتحليل الأعداد الأولية...');
+            } else {
+                updateRobotStatus('🔢 Robot executing advanced Shor algorithm');
+                showNotification('Activating Shor algorithm for prime number analysis...');
+            }
+        }
+        
+        function activateAI() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('🚀 تفعيل الذكاء الاصطناعي المتقدم بالكامل');
+                showNotification('تفعيل الذكاء الاصطناعي المتقدم...');
+            } else {
+                updateRobotStatus('🚀 Full activation of advanced artificial intelligence');
+                showNotification('Activating advanced AI...');
+            }
+        }
+        
+        function connectSatellites() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('🛰️ الروبوت يتصل بشبكة الأقمار الاصطناعية');
+                showNotification('جاري ربط شبكة الأقمار الاصطناعية الكمومية...');
+            } else {
+                updateRobotStatus('🛰️ Robot connecting to satellite network');
+                showNotification('Connecting quantum satellite network...');
+            }
+        }
+        
+        function simulateBlackHole() {
+            if (currentLanguage === 'ar') {
+                updateRobotStatus('⚫ الروبوت يبدأ محاكاة الثقب الأسود الكمومي');
+                showNotification('بدء محاكاة الثقب الأسود الكمومي...');
+            } else {
+                updateRobotStatus('⚫ Robot starting quantum black hole simulation');
+                showNotification('Starting quantum black hole simulation...');
+            }
+        }
+        
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+        
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            document.getElementById('html-root').setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.getElementById('html-root').setAttribute('lang', lang);
+            
+            for (const [key, value] of Object.entries(translations[lang])) {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = value;
+                }
+            }
+            
+            document.getElementById('lang-ar').classList.toggle('active', lang === 'ar');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            
+            const randomStatus = translations[lang]['robot-statuses'][Math.floor(Math.random() * translations[lang]['robot-statuses'].length)];
+            updateRobotStatus(randomStatus);
+            
+            updatePriceDisplay();
+            updatePriceIndicator();
+            
+            if (lang === 'ar') {
+                showNotification('تم تغيير اللغة إلى العربية');
+            } else {
+                showNotification('Language switched to English');
+            }
+        }
+    </script>
 </body>
 </html>
